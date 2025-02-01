@@ -2,6 +2,7 @@ pub mod three_way_cipher;
 pub mod mars_cipher;
 pub mod tea_cipher;
 pub mod gost_cipher;
+pub mod cast5_cipher;
 
 pub trait ICipher {
     fn get_block_size(&self) -> usize;
