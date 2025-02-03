@@ -39,7 +39,6 @@ impl Cast5Cipher {
         for (i, ki) in k.iter().enumerate() {
             self.rotate[i] = (ki & 0x1F) as u8;
         }
-
     }
 
     fn key_schedule(x: &mut [u32], z: &mut [u32], k: &mut [u32]) {
@@ -283,46 +282,6 @@ impl Cast5Cipher {
         output[..4].copy_from_slice(&right.to_be_bytes());
         output[4..].copy_from_slice(&left.to_be_bytes());
         output
-    }
-
-    pub fn block_encrypt(&self, in_buf: &[u8], out_buf: &mut [u8]) {
-        assert_eq!(
-            in_buf.len() % BLOCK_SIZE,
-            0,
-            "Input length must be a multiple of block size."
-        );
-        assert_eq!(
-            out_buf.len(),
-            in_buf.len(),
-            "Output buffer must have the same length as input buffer."
-        );
-
-        for i in (0..in_buf.len()).step_by(BLOCK_SIZE) {
-            let mut block = [0u8; BLOCK_SIZE];
-            block.copy_from_slice(&in_buf[i..i + BLOCK_SIZE]);
-            let encrypted_block = self.encrypt_block(&block);
-            out_buf[i..i + BLOCK_SIZE].copy_from_slice(&encrypted_block);
-        }
-    }
-
-    pub fn block_decrypt(&self, in_buf: &[u8], out_buf: &mut [u8]) {
-        assert_eq!(
-            in_buf.len() % BLOCK_SIZE,
-            0,
-            "Input length must be a multiple of block size."
-        );
-        assert_eq!(
-            out_buf.len(),
-            in_buf.len(),
-            "Output buffer must have the same length as input buffer."
-        );
-
-        for i in (0..in_buf.len()).step_by(BLOCK_SIZE) {
-            let mut block = [0u8; BLOCK_SIZE];
-            block.copy_from_slice(&in_buf[i..i + BLOCK_SIZE]);
-            let decrypted_block = self.decrypt_block(&block);
-            out_buf[i..i + BLOCK_SIZE].copy_from_slice(&decrypted_block);
-        }
     }
 }
 
