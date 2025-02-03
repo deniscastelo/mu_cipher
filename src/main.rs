@@ -5,7 +5,6 @@ use ciphers::ICipher;
 use ciphers::tea_cipher::TeaCipher;
 use ciphers::gost_cipher::GOSTCipher;
 use ciphers::cast5_cipher::Cast5Cipher;
-use cast5::Cast5;
 
 
 mod ciphers;
@@ -18,13 +17,13 @@ fn main() {
     ];
 
     // Inicializar o cifrador
-    let cipher = Cast5::new_from_slice(&key).unwrap();
+    let cipher = Cast5Cipher::new(&key);
 
     // Bloco de 64 bits (8 bytes) para criptografar
     let plaintext: [u8; 8] = [0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF];
 
     // Criptografar o bloco
-    let ciphertext = cipher..(&plaintext);
+    let ciphertext = cipher.encrypt_block(&plaintext);
     println!("Ciphertext: {:02X?}", ciphertext);
 
     // Descriptografar o bloco
