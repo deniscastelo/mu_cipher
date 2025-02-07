@@ -103,7 +103,4 @@ impl ICipher for GOSTCipher {
 
     }
     
-    fn init(&mut self) {
-        
-    }
 }

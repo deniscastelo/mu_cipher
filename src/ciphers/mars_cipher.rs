@@ -286,6 +286,4 @@ impl ICipher for MarsCipher {
     fn block_decrypt(&self, in_buf: &[u8], len: usize, out_buf: &mut [u8]) {
         self.decrypt_block(&in_buf[..len], out_buf);
     }
-
-    fn init(&mut self) {}
 }

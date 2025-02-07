@@ -6,17 +6,12 @@ pub struct TeaCipher {
 
 impl TeaCipher {
     pub fn new(key: &[u8]) -> Self {
-
-        let mut key_u32 = [0u32;4];
+        let mut key_u32 = [0u32; 4];
 
         for i in 0..4 {
-          key_u32[i] = u32::from_le_bytes([
-              key[i * 4],
-              key[i * 4 + 1],
-              key[i * 4 + 2],
-              key[i * 4 + 3],
-          ]);
-      }
+            key_u32[i] =
+                u32::from_le_bytes([key[i * 4], key[i * 4 + 1], key[i * 4 + 2], key[i * 4 + 3]]);
+        }
 
         Self { key: key_u32 }
     }
@@ -87,8 +82,6 @@ impl ICipher for TeaCipher {
             let _ = &out_buf[i..i + block_size].copy_from_slice(&bytes);
         }
     }
-
-    fn init(&mut self) {}
 }
 
 fn bytes_to_u32_array(bytes: &[u8]) -> [u32; 2] {

@@ -168,8 +168,4 @@ impl ICipher for ThreeWayCipher {
     fn block_decrypt(&self, in_buf: &[u8], len: usize, out_buf: &mut [u8]) {
         self.block_decrypt(&in_buf[..len], out_buf);
     }
-
-    fn init(&mut self) {
-        // Nenhuma inicialização necessária para esta implementação
-    }
 }
